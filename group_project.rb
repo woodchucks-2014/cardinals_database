@@ -65,9 +65,9 @@ end
 
 def year_lookup(year, display=5)
   hash = Hash.new(0)
-  wins = $db.execute('SELECT * from nl_real_wins WHERE YEAR = 2014')
+  wins = $db.execute("SELECT * from nl_real_wins WHERE YEAR = #{year}")
   names = $category_header
-   wins = wins.flatten[2..-1].compact
+   wins = wins.flatten[2..-1].map!{|value| value == nil ? value.to_i.to_s : value}
   wins.each_index do |index| 
     hash[names[index]] = wins[index]
   end
@@ -75,8 +75,3 @@ def year_lookup(year, display=5)
   hash[0..(display - 1)]
 end
 
-# p $category_header
-
-# p team_year_lookup("ATL", 2012)  
-# p team_lookup("ATL", 5)
-p year_lookup(2012,)
