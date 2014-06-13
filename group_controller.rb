@@ -1,10 +1,6 @@
 require_relative 'group_project.rb'
 
-class  
-  def initialize
-    @viewer = View.new
-    @model = Model.new
-  end
+
   
   def interface
     command = ""
@@ -57,9 +53,5 @@ Controller.new
 # my_controller.interface
 
 
-def get_year
-end
 
-def get_team
-end
 
