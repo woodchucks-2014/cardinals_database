@@ -27,7 +27,6 @@ db.execute("CREATE TABLE nl_real_wins(
     val int
   );")
 
-
 nl_array.each do |row| 
  db.execute("INSERT INTO nl_real_wins(
     YEAR,
@@ -48,6 +47,9 @@ nl_array.each do |row|
     SFG,
     STL,
     WSN)     
-  VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", row)
+    VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", row)
+end
+
+class Model
 end
 
