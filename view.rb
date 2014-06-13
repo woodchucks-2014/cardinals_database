@@ -43,7 +43,8 @@ class Controller
   	ans1 = @viewer.welcome
   	if ans1 == 'Y' || 'y'
   		ans = @viewer.selection
-  		ans.to_i
+  		ans
+  		p ans
   		go_case(ans)
   	else
   		exit
@@ -52,16 +53,20 @@ class Controller
 
   def go_case(ans)
   	case ans
-  	when 1
-  		team = @viewer.ask_team
-  		p team
-  		year = @viewer.ask_year
-  		year.to_i
-  		wins = @model.team_year_lookup(team, year)
-  		@viewer.team_wins(team, wins, year)
-  	when 2
-  		team = @viewer.ask_team
-  		
+	  	when "1"
+	  		team = @viewer.ask_team
+	  		year = @viewer.ask_year
+	  		wins = @model.team_year_lookup(team, year)
+	  		@viewer.team_wins(team, wins, year)
+	  	when "2"
+	  		team = @viewer.ask_team
+	  		range = @viewer.ask_range.to_i
+	  		report= @model.team_win_totals(team, range)
+	  		@viewer.year_wins(report)
+	  	when "3"
+
+
+
   	end
 
   end
@@ -91,14 +96,24 @@ class View
 		gets.chomp
 	end
 
+	def ask_range
+		puts "Select your years of history for viewing:"
+		gets.chomp
+	end
+
 	def team_wins(team, wins, year)
 		wins = wins.flatten.join
-		
 		p wins
 		puts "#{team} won #{wins} games in #{year}."
 	end
 
-
+	def year_wins(report)
+		puts "Year            Wins"
+    puts "====================" #Look into better implementation here. 
+    report[1..-1].each do |report|
+    	puts report[1] + "              " + report[0] 
+    end
+	end
 
 end
 

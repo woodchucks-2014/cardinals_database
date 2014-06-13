@@ -79,3 +79,5 @@ def year_lookup(year, display=5)
 end
 
 p team_year_lookup("ATL", 2004)
+
+p team_win_totals("ATL", 10)
