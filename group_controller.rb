@@ -49,7 +49,7 @@ require_relative 'group_project.rb'
 
 end
 
-Controller.new
+
 # my_controller.interface
 
 

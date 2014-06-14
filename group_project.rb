@@ -69,15 +69,26 @@ def year_lookup(year, display=5)
     #Takes a year and the number of teams you want to display.  
   hash = Hash.new(0)
   wins = $db.execute("SELECT * from nl_real_wins WHERE YEAR = #{year}")
+   p wins
+  # wins = wins.flatten[2..-1].map!{|value| value == nil ? value.to_i.to_s : value}
+#   p wins
   names = $category_header
+ # p names
+    p output = wins.zip(names)
+puts "+++++++++++++++++++++"
    wins = wins.flatten[2..-1].map!{|value| value == nil ? value.to_i.to_s : value}
   wins.each_index do |index| 
     hash[names[index]] = wins[index]
   end
-  hash = hash.sort_by{|k,v| v}.reverse
-  hash[0..(display - 1)]
+  p hash
+ hash = hash.sort_by{|k,v| v}.reverse
+# p hash
+   hash[0..(display - 1)]
+ p hash
 end
 
-p team_year_lookup("ATL", 2004)
+# p team_year_lookup("ATL", 2004)
 
-p team_win_totals("ATL", 10)
+# p team_win_totals("ATL", 10)
+
+year_lookup(2004, 5)
