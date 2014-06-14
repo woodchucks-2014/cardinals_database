@@ -2,6 +2,10 @@ require 'csv'
 require 'sqlite3'
 
 $db = SQLite3::Database.new "nl_real_wins.db"
+nl_array = CSV.read("nation_league_wins.csv")
+nl_array[0].delete_at(0)
+nl_array[0].delete_at(0)
+$category_header = nl_array[0]
 
 
 class Model
@@ -16,8 +20,7 @@ class Model
     wins = $db.execute("SELECT #{team},YEAR FROM nl_real_wins WHERE Year >= #{range};")
 	end
 
-	def year_lookup(year, display=5) 
-    #Takes a year and the number of teams you want to display.  
+	def year_lookup(year, display=5)
   hash = Hash.new(0)
   wins = $db.execute("SELECT * from nl_real_wins WHERE YEAR = #{year}")
   names = $category_header
@@ -27,7 +30,7 @@ class Model
   end
   hash = hash.sort_by{|k,v| v}.reverse
   hash[0..(display - 1)]
-	end
+end
 end
 
 
@@ -43,12 +46,17 @@ class Controller
   	ans1 = @viewer.welcome
   	if ans1 == 'Y' || 'y'
   		ans = @viewer.selection
-  		ans
-  		p ans
-  		go_case(ans)
+  	#Better logic here. 
   	else
   		exit
   	end
+  end
+
+  def loop(ans)
+  	unless ans == 4
+  		exit
+  	end
+  	start
   end
 
   def go_case(ans)
@@ -64,12 +72,17 @@ class Controller
 	  		report= @model.team_win_totals(team, range)
 	  		@viewer.year_wins(report)
 	  	when "3"
-
-
-
-  	end
-
-  end
+	  		year = @viewer.ask_year.to_i
+	  		p year
+	  		num_teams = @viewer.team_number.to_i
+	  		p num_teams
+	  		report = @model.year_lookup(year, num_teams)
+	  		p report
+	  		@viewer.year_lookup(report)
+			when "4"
+				exit
+			end
+	end
 
 end
 
@@ -79,10 +92,12 @@ class View
 		puts "Welcome to the game! Would you like to play? Enter Y/N"
 		answer = gets.chomp
 	end
+
 	def selection
 		puts "1: Lookup Wins for a specific Year and Team:"
 		puts "2: Lookup Wins for a team with a range of specific years:"
 		puts "3: Lookup Winningest teams for a particular year: "
+		puts "4: Exit The Program"
 		gets.chomp
 	end
 
@@ -101,6 +116,11 @@ class View
 		gets.chomp
 	end
 
+	def team_number
+		puts "Please enter the number of teams for display:"
+		gets.chomp
+	end
+
 	def team_wins(team, wins, year)
 		wins = wins.flatten.join
 		p wins
@@ -115,6 +135,19 @@ class View
     end
 	end
 
+	def year_lookup(output)
+		p output
+		puts "Year            Wins"
+    puts "===================="  
+    output.each do |report| 
+      puts report[0] + "              " + report[1] 
+		end
+	end
 end
 
 Controller.new
+
+# model = Model.new
+# p model.year_lookup(2004, 10)
+
+
