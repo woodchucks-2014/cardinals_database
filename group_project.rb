@@ -1,5 +1,6 @@
 require 'csv'
 require 'sqlite3'
+require 'benchmark'
 
 $db = SQLite3::Database.new "nl_real_wins.db"
 
@@ -67,28 +68,26 @@ end
 
 def year_lookup(year, display=5) 
     #Takes a year and the number of teams you want to display.  
+  wins = $db.execute("SELECT * from nl_real_wins WHERE YEAR = #{year}")
+  wins = wins.flatten[2..-1].map!{|value| value.to_i}
+  names = $category_header
+  wins_and_names = wins.zip(names).sort_by {|a, b| a}.reverse #This can be made clearer. 
+  wins_and_names[0..(display -1)]
+end
+
+def year_lookup2(year, display=5)
   hash = Hash.new(0)
   wins = $db.execute("SELECT * from nl_real_wins WHERE YEAR = #{year}")
-   p wins
-  # wins = wins.flatten[2..-1].map!{|value| value == nil ? value.to_i.to_s : value}
-#   p wins
   names = $category_header
- # p names
-    p output = wins.zip(names)
-puts "+++++++++++++++++++++"
    wins = wins.flatten[2..-1].map!{|value| value == nil ? value.to_i.to_s : value}
   wins.each_index do |index| 
     hash[names[index]] = wins[index]
   end
-  p hash
- hash = hash.sort_by{|k,v| v}.reverse
-# p hash
-   hash[0..(display - 1)]
- p hash
+  hash = hash.sort_by{|k,v| v}.reverse
+  hash[0..(display - 1)]
 end
 
-# p team_year_lookup("ATL", 2004)
-
-# p team_win_totals("ATL", 10)
-
-year_lookup(2004, 5)
+p year_lookup(2004,10)
+p year_lookup2(2004,10)
+puts Benchmark.measure {year_lookup(2004,10) }
+puts Benchmark.measure {year_lookup2(2004, 10) }

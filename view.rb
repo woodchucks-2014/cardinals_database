@@ -35,7 +35,6 @@ class View
 
 	def team_wins(team, wins, year)
 		wins = wins.flatten.join
-		p wins
 		puts "#{team} won #{wins} games in #{year}."
 	end
 
@@ -52,7 +51,7 @@ class View
 		puts "Year            Wins"
     puts "===================="  
     output.each do |report| 
-      puts report[0] + "              " + report[1] 
+      puts report[0].to_s + "              " + report[1] 
 		end
 	end
 

@@ -17,7 +17,7 @@ class Controller
   	else
   		exit
   	end
-  	unless ans == 4
+  	unless ans == 4 #Probably split into another method. 
   		go_case(ans)
   	
   	end
@@ -30,22 +30,21 @@ class Controller
 	  		year = @viewer.ask_year
 	  		wins = @model.team_year_lookup(team, year)
 	  		@viewer.team_wins(team, wins, year)
-	  		@viewer.selection # FIX THIS
+	  		start # FIX THIS
 	  	when "2"
 	  		team = @viewer.ask_team
 	  		range = @viewer.ask_range.to_i
 	  		report= @model.team_win_totals(team, range)
 	  		@viewer.year_wins(report)
-	  		@viewer.selection #THIS IS BAD DESIGN
+	  		start #THIS IS BAD DESIGN
 	  	when "3"
 	  		year = @viewer.ask_year.to_i
 	  		p year
 	  		num_teams = @viewer.team_number.to_i
 	  		p num_teams
 	  		report = @model.year_lookup(year, num_teams)
-	  		p report
 	  		@viewer.year_lookup(report)
-	  		@viewer.selection #BRENDAN U R 2 LAZY
+	  		start #BRENDAN U R 2 LAZY
 			end
 	end
 end
