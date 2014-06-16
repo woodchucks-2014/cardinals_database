@@ -1,5 +1,5 @@
 module CardinalsDatabase
-  class View
+  class CLIView
     def welcome
       puts "Welcome to the game! Would you like to play? Enter Y/N"
     end

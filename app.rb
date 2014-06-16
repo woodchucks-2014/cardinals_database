@@ -1,7 +1,7 @@
 require './config'
 require './team'
 require './stat'
-require './view'
+require './cli_view'
 require './controller'
 
 CardinalsDatabase::Controller.new.start

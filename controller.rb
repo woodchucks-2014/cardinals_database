@@ -1,7 +1,7 @@
 module CardinalsDatabase
   class Controller
     def initialize
-      @viewer = View.new
+      @viewer = CLIView.new
     end
 
     def start #This implementation seems a bit fuzzy, don't u think so?
