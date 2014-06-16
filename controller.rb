@@ -2,46 +2,57 @@ module CardinalsDatabase
   class Controller
     def initialize
       @viewer = View.new
-      @model = CardinalsDatabase::Model.new
-      start
+      @model = Model.new
     end
 
     def start #This implementation seems a bit fuzzy, don't u think so?
-      ans1 = @viewer.welcome
-      if ans1 == 'Y' || 'y'
-        ans = @viewer.selection
+      @viewer.welcome
+      ans1 = @viewer.input
+
+      if ans1 == 'Y' || ans1 == 'y'
+        ans = main_menu
       else
         exit
       end
-      unless ans == 4 #Probably split into another method.
-        go_case(ans)
 
+      while ans != '4' #Probably split into another method.
+        case ans
+        when '1'
+          wins_for_year
+        when '2'
+          wins_over_time
+        when '3'
+          stats_for_year
+        end
+
+        ans = main_menu
       end
     end
 
-    def go_case(ans) #U CAN DO BETTER THAN THIS
-      case ans
-        when "1"
-          team = @viewer.ask_team
-          year = @viewer.ask_year
-          wins = @model.team_year_lookup(team, year)
-          @viewer.team_wins(team, wins, year)
-          start # FIX THIS
-        when "2"
-          team = @viewer.ask_team
-          range = @viewer.ask_range.to_i
-          report= @model.team_win_totals(team, range)
-          @viewer.year_wins(report)
-          start #THIS IS BAD DESIGN
-        when "3"
-          year = @viewer.ask_year.to_i
-          p year
-          num_teams = @viewer.team_number.to_i
-          p num_teams
-          report = @model.year_lookup(year, num_teams)
-          @viewer.year_lookup(report)
-          start #BRENDAN U R 2 LAZY
-        end
+    def main_menu
+      @viewer.selection
+      @viewer.input
+    end
+
+    def wins_for_year
+      team = @viewer.ask_team
+      year = @viewer.ask_year
+      wins = @model.team_year_lookup(team, year)
+      @viewer.team_wins(team, wins, year)
+    end
+
+    def wins_over_time
+      team = @viewer.ask_team
+      range = @viewer.ask_range.to_i
+      report= @model.team_win_totals(team, range)
+      @viewer.year_wins(report)
+    end
+
+    def stats_for_year
+      year = @viewer.ask_year.to_i
+      num_teams = @viewer.team_number.to_i
+      report = @model.year_lookup(year, num_teams)
+      @viewer.year_lookup(report)
     end
   end
 end

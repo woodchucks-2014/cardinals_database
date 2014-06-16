@@ -2,7 +2,10 @@ module CardinalsDatabase
   class View
     def welcome
       puts "Welcome to the game! Would you like to play? Enter Y/N"
-      answer = gets.chomp
+    end
+
+    def input
+      gets.chomp
     end
 
     def selection
@@ -10,27 +13,26 @@ module CardinalsDatabase
       puts "2: Lookup Wins for a team with a range of specific years:"
       puts "3: Lookup Winningest teams for a particular year: "
       puts "4: Exit The Program"
-      gets.chomp
     end
 
     def ask_team
       puts "Please Enter Your Team: "
-      gets.chomp
+      input
     end
 
     def ask_year
       puts "Please Enter Your Year"
-      gets.chomp
+      input
     end
 
     def ask_range
       puts "Select your years of history for viewing:"
-      gets.chomp
+      input
     end
 
     def team_number
       puts "Please enter the number of teams for display:"
-      gets.chomp
+      input
     end
 
     def team_wins(team, wins, year)

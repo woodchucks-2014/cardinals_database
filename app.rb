@@ -3,4 +3,4 @@ require './model'
 require './view'
 require './controller'
 
-CardinalsDatabase::Controller.new
+CardinalsDatabase::Controller.new.start
