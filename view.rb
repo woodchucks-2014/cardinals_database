@@ -40,8 +40,8 @@ module CardinalsDatabase
     def year_wins(report)
       puts "Year            Wins"
       puts "====================" #Look into better implementation here.
-      report[1..-1].each do |report|
-        puts report[1].to_s + "              " + report[0].to_s
+      report.each do |year, wins|
+        puts year.to_s + "              " + wins.to_s
       end
     end
 
@@ -49,8 +49,8 @@ module CardinalsDatabase
       p output
       puts "Year            Wins"
       puts "===================="
-      output.each do |report|
-        puts report[0].to_s + "              " + report[1].to_s
+      output.each do |year, wins|
+        puts year.to_s + "              " + wins.to_s
       end
     end
   end
