@@ -1,10 +1,10 @@
 require_relative 'group_project.rb'
 
 
-  
+
   def interface
     command = ""
-    
+
     while command != "EXIT"
     puts "Please type in your selection"
     puts "-----------------------------"
@@ -24,11 +24,11 @@ require_relative 'group_project.rb'
           range = gets.chomp.to_i
           puts output = team_lookup(team, range)
           puts "Year            Wins"
-          puts "===================="  
-          output[1..-1].each do |report| 
-            puts report[1] + "              " + report[0] 
+          puts "===================="
+          output[1..-1].each do |report|
+            puts report[1] + "              " + report[0]
           end
-          
+
         when "3"
           puts "Please enter the year: "
           year = gets.chomp
@@ -36,11 +36,11 @@ require_relative 'group_project.rb'
           team_number = gets.chomp.to_i
           output = year_lookup(year, team_number)
           puts "Year            Wins"
-          puts "===================="  
-          output.each do |report| 
-            puts report[0] + "              " + report[1] 
-          end  
-  
+          puts "===================="
+          output.each do |report|
+            puts report[0] + "              " + report[1]
+          end
+
         end
 
       end

@@ -14,7 +14,7 @@ $category_header = nl_array[0]
 
 #     GAMES varchar(30),
 #     ARI varchar(30),
-#     ATL varchar(30), 
+#     ATL varchar(30),
 #     CHC varchar(30),
 #     CIN varchar(30),
 #     COL varchar(30),
@@ -32,7 +32,7 @@ $category_header = nl_array[0]
 #     val int
 #   );")
 
-# nl_array.each do |row| 
+# nl_array.each do |row|
 #  db.execute("INSERT INTO nl_real_wins(
 #     YEAR,
 #     GAMES,
@@ -41,7 +41,7 @@ $category_header = nl_array[0]
 #     CHC,
 #     CIN,
 #     COL,
-#     HOU,  
+#     HOU,
 #     LAD,
 #     FLA,
 #     MIL,
@@ -51,27 +51,27 @@ $category_header = nl_array[0]
 #     SDP,
 #     SFG,
 #     STL,
-#     WSN)     
+#     WSN)
 #     VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", row)
 # end
 
-def team_year_lookup(team, year) 
-    #Takes Team and Year 
+def team_year_lookup(team, year)
+    #Takes Team and Year
   wins = $db.execute("select #{team} from nl_real_wins where YEAR = #{year}")
 end
 
-def team_win_totals(team, display = 0) 
+def team_win_totals(team, display = 0)
     #Takes a Team and A Number 1-24(for display argument)
     range = (2014 - display)
     wins = $db.execute("SELECT #{team},YEAR FROM nl_real_wins WHERE Year >= #{range};")
 end
 
-def year_lookup(year, display=5) 
-    #Takes a year and the number of teams you want to display.  
+def year_lookup(year, display=5)
+    #Takes a year and the number of teams you want to display.
   wins = $db.execute("SELECT * from nl_real_wins WHERE YEAR = #{year}")
   wins = wins.flatten[2..-1].map!{|value| value.to_i}
   names = $category_header
-  wins_and_names = wins.zip(names).sort_by {|a, b| a}.reverse #This can be made clearer. 
+  wins_and_names = wins.zip(names).sort_by {|a, b| a}.reverse #This can be made clearer.
   wins_and_names[0..(display -1)]
 end
 
@@ -80,7 +80,7 @@ def year_lookup2(year, display=5)
   wins = $db.execute("SELECT * from nl_real_wins WHERE YEAR = #{year}")
   names = $category_header
    wins = wins.flatten[2..-1].map!{|value| value == nil ? value.to_i.to_s : value}
-  wins.each_index do |index| 
+  wins.each_index do |index|
     hash[names[index]] = wins[index]
   end
   hash = hash.sort_by{|k,v| v}.reverse

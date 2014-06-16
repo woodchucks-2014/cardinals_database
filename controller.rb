@@ -3,7 +3,7 @@ require_relative 'view'
 
 
 class Controller
-  
+
   def initialize
     @viewer = View.new
     @model = Model.new
@@ -17,9 +17,9 @@ class Controller
   	else
   		exit
   	end
-  	unless ans == 4 #Probably split into another method. 
+  	unless ans == 4 #Probably split into another method.
   		go_case(ans)
-  	
+
   	end
   end
 

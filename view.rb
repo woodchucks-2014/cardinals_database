@@ -40,18 +40,18 @@ class View
 
 	def year_wins(report)
 		puts "Year            Wins"
-    puts "====================" #Look into better implementation here. 
+    puts "====================" #Look into better implementation here.
     report[1..-1].each do |report|
-    	puts report[1] + "              " + report[0] 
+    	puts report[1] + "              " + report[0]
     end
 	end
 
 	def year_lookup(output)
 		p output
 		puts "Year            Wins"
-    puts "===================="  
-    output.each do |report| 
-      puts report[0].to_s + "              " + report[1] 
+    puts "===================="
+    output.each do |report|
+      puts report[0].to_s + "              " + report[1]
 		end
 	end
 
