@@ -1,9 +1,5 @@
-require_relative 'model'
-require_relative 'view'
-
 module CardinalsDatabase
   class Controller
-
     def initialize
       @viewer = View.new
       @model = CardinalsDatabase::Model.new
@@ -49,5 +45,3 @@ module CardinalsDatabase
     end
   end
 end
-
-  Controller.new
