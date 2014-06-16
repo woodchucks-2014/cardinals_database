@@ -1,0 +1,11 @@
+CREATE TABLE IF NOT EXISTS teams (
+  id INTEGER PRIMARY KEY ASC,
+  name CHAR(3) UNIQUE NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS stats (
+  id INTEGER PRIMARY KEY ASC,
+  year CHAR(4),
+  team_id INT,
+  wins INT
+);
