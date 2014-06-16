@@ -1,5 +1,6 @@
 require './config'
-require './model'
+require './team'
+require './stat'
 require './view'
 require './controller'
 

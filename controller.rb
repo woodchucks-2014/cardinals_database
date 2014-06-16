@@ -2,7 +2,6 @@ module CardinalsDatabase
   class Controller
     def initialize
       @viewer = View.new
-      @model = Model.new
     end
 
     def start #This implementation seems a bit fuzzy, don't u think so?
@@ -35,24 +34,35 @@ module CardinalsDatabase
     end
 
     def wins_for_year
-      team = @viewer.ask_team
+      team_name = @viewer.ask_team
       year = @viewer.ask_year
-      wins = @model.team_year_lookup(team, year)
-      @viewer.team_wins(team, wins, year)
+
+      team = Team.find('name', team_name)
+      stat = Stat.where('team_id = ? AND year = ?', [team.id, year]).first
+      wins = stat.wins
+
+      @viewer.team_wins(team.name, wins, year)
     end
 
     def wins_over_time
-      team = @viewer.ask_team
+      team_name = @viewer.ask_team
       range = @viewer.ask_range.to_i
-      report= @model.team_win_totals(team, range)
-      @viewer.year_wins(report)
+
+      start_year = 2014 - range
+
+      team = Team.find('name', team_name)
+      stats = Stat.where('team_id = ? AND year >= ?', [team.id, start_year])
+
+      @viewer.year_wins(stats)
     end
 
     def stats_for_year
       year = @viewer.ask_year.to_i
       num_teams = @viewer.team_number.to_i
-      report = @model.year_lookup(year, num_teams)
-      @viewer.year_lookup(report)
+
+      stats = Stat.where('year = ?', [year])[0..(num_teams - 1)]
+
+      @viewer.year_lookup(stats)
     end
   end
 end

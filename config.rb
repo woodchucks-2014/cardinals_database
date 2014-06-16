@@ -5,6 +5,6 @@ module CardinalsDatabase
   DB_FILE   = File.join(ROOT_PATH, 'nl_real_wins.db')
 
   def self.db
-    @db ||= SQLite3::Database.new DB_FILE
+    @db ||= SQLite3::Database.new DB_FILE, results_as_hash: true
   end
 end

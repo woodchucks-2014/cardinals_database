@@ -39,20 +39,19 @@ module CardinalsDatabase
       puts "#{team} won #{wins} games in #{year}."
     end
 
-    def year_wins(report)
+    def year_wins(stats)
       puts "Year            Wins"
       puts "====================" #Look into better implementation here.
-      report.each do |year, wins|
-        puts year.to_s + "              " + wins.to_s
+      stats.each do |stat|
+        puts stat.year.to_s + "              " + stat.wins.to_s
       end
     end
 
-    def year_lookup(output)
-      p output
+    def year_lookup(stats)
       puts "Year            Wins"
       puts "===================="
-      output.each do |year, wins|
-        puts year.to_s + "              " + wins.to_s
+      stats.each do |stat|
+        puts stat.year.to_s + "              " + stat.wins.to_s
       end
     end
   end
